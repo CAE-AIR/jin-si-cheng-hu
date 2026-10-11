@@ -1,0 +1,312 @@
+[build-system]
+#setuptools>=61 is what makes the [project] table below authoritative; on anything older it is
+#silently ignored and the wheel ends up with no metadata at all (revision2026 step R2.1).
+#setuptools>=77 is the first version accepting the SPDX license expression below (#2372).
+#pybind11<3.0: 3.0 (July 2025) is not yet compatible - a deliberate pin, not a stale one. It moved
+#here from setup_requires in revision2026 step R2.2; note that this is honoured under build isolation ('pip
+#wheel .', 'python -m build') but NOT by a direct 'python setup.py bdist_wheel', where pybind11
+#must already be installed - see docs/howTo/condaEnvironments.md.
+#tomli: setup.py reads [tool.exudyn] below, and tomllib is stdlib only from 3.11 while
+#requires-python allows 3.10 and CI builds cp310. Same caveat as pybind11 - under a direct
+#'python setup.py bdist_wheel' this is NOT installed for you, so setup.py raises an ImportError
+#naming the install command rather than silently falling back to different defaults (revision2026 step R2.14).
+requires = ["setuptools>=77", "wheel", "pybind11<3.0", "tomli; python_version < '3.11'"]
+build-backend = "setuptools.build_meta"
+
+#Static package metadata. Everything here used to be keyword arguments to setup(); what is left
+#in setup.py is what genuinely depends on the build (version, packages, package_data,
+#ext_modules, cmdclass). See revision2026 step R2.1.
+[project]
+name = "exudyn"
+description = "EXUDYN flexible multibody dynamics simulation in C++ and Python"
+#the minimum Python version needed by THIS exudyn version, not the versions that are tested -
+#pypi.org uses it to pick which wheel to offer, so a too-high bound hides the package.
+#3.10 is the real floor since revision2026 step R2.6: CI builds cp310-cp314, the classifiers say
+#3.10-3.14, and the last artefact of 3.7 support (the ReleaseP37 configuration) is gone. ">=3.6"
+#claimed wheels that have not existed for years; pip then offered an old release to a 3.6 user
+#instead of telling them the truth.
+requires-python = ">=3.10"
+dependencies = ["numpy"]
+#numpy is the only mandatory dependency and stays that way (CLAUDE.md, invariant)
+
+#derived from the version string in setup.py: '.dev1' switches the Development Status classifier
+dynamic = ["version", "classifiers"]
+
+#the licence is the custom 'EXUDYN General License' in LICENSE.txt, not any OSI-approved BSD, so
+#"BSD-3-Clause" would be a false claim; SPDX writes a custom licence as LicenseRef-... (#2372).
+#The 'License :: OSI Approved :: BSD License' classifier was already dropped as deprecated.
+license = "LicenseRef-EXUDYN-General-License"
+license-files = ["LICENSE.txt"]
+
+[[project.authors]]
+name = "Johannes Gerstmayr"
+email = "reply.exudyn@gmail.com"
+
+[project.urls]
+Homepage = "https://github.com/jgerstmayr/EXUDYN"
+
+#text/x-rst, shown as the project page on pypi.org. Inline rather than README.rst, the landing page of GitHub and Read
+#the Docs, because its images are paths in the repository, which pypi.org cannot show (#2917).
+[project.readme]
+content-type = "text/x-rst"
+text = """
+==========
+**Exudyn**
+==========
+
+**A flexible multibody dynamics systems simulation code with Python and C++**
+
++  **Documentation**: the user manual, tutorials, the reference manual of all items and the Python utility functions on
+   `Read the Docs <https://exudyn.readthedocs.io/>`_
++  **Install**: ``pip install "exudyn[basic]"`` - Exudyn with scipy and matplotlib, recommended to start;
+   ``pip install "exudyn[common]"`` for most features; see the
+   `installation page <https://exudyn.readthedocs.io/en/latest/docs/manual/gettingStartedInstall.html>`_
++  **Changes**: the `revisions chapter <https://exudyn.readthedocs.io/en/latest/docs/manual/revisions.html>`_
++  **Source, examples and test models**: `GitHub <https://github.com/jgerstmayr/EXUDYN>`_
++  **License**: `LICENSE.txt <https://github.com/jgerstmayr/EXUDYN/blob/master/LICENSE.txt>`_
++  pre-built for Python 3.10 - 3.14 under Windows, Linux and macOS
+
+How to cite: Johannes Gerstmayr. Exudyn -- A C++ based Python package for flexible multibody systems. Multibody System
+Dynamics, Vol. 60, pp. 533-561, 2024. `https://doi.org/10.1007/s11044-023-09937-1 <https://doi.org/10.1007/s11044-023-09937-1>`_
+"""
+
+#Optional dependency groups, checked against the imports actually present in the code by
+#'python tools/checkExtras.py' (revision2026 step R2.12) - so these lists cannot quietly go stale.
+#  pip install exudyn[basic]   what most models need: scipy and matplotlib - the recommended start
+#  pip install exudyn[tests]   everything TestModels/ needs to run the test suite
+#  pip install exudyn[all]     the above plus everything the package and the Examples refer to
+#  pip install exudyn[rl]      reinforcement learning; deliberately NOT part of [all], see below
+[project.optional-dependencies]
+#The sets nest: basic < tests < common < all, each built on the previous with a PEP 508
+#self-reference so no package is ever listed twice. [basic] is what a user needs to run, plot and
+#analyse most models; it leaves out ngsolve, which is not available on every platform.
+#Note the direction: [tests] is the INNERMOST set, not the outermost. It is the one with a hard
+#definition - exactly what TestModels/ needs to run - so it stays minimal and stable. [common] is
+#where packages land once a frequently used feature depends on them, and is the set that grows as
+#things migrate down from [all]. Do not "simplify" this by folding common into tests.
+basic = [
+    "scipy",
+    "matplotlib",
+    ]
+tests = [
+    "exudyn[basic]",
+    "h5py",
+    "networkx",
+    "psutil",
+    "ngsolve",          #also provides the 'netgen' import used by the NGsolve tests
+    ]
+common = [
+    "exudyn[tests]",
+    "numpy-stl",        #imported as 'stl'; STL import in graphics.py
+    "tqdm",             #progress reporting, e.g. in the optimization routines
+    "ffmpeg-python",    #video export from interactive.py
+    ]
+all = [
+    "exudyn[common]",
+    "pymeshlab",
+    "roboticstoolbox-python",
+    "spatialmath-python",
+    "numba",
+    "dispy",
+    "mpi4py",
+    ]
+#torch is multi-GB and the CPU/CUDA choice is made with an --index-url, which cannot be expressed
+#in wheel metadata - so this stays opt-in and is NOT pulled in by [all]. The consequence is
+#recorded rather than hidden: exudyn/artificialIntelligence.py imports stable_baselines3 at module
+#level with no guard, so TestModels/allExudynModulesTest.py skips its RL part in a plain [tests]
+#environment.
+rl = [
+    "torch",
+    "stable-baselines3",
+    "gymnasium",
+    "gym",
+    "tensorboard",
+    ]
+
+#Development environments (revision2026 step R4.24). Dependency groups (PEP 735) are never published
+#with the wheel - unlike the extras above, which users see as exudyn[...]. Install with pip >= 25.1
+#from the repository root, e.g. 'pip install --group dev'; see docs/howTo/condaEnvironments.md.
+#The test dependencies are the [tests] extra of the locally built wheel, not repeated here.
+[dependency-groups]
+docs = [
+    "sphinx",
+    "sphinx-rtd-theme",
+    "readthedocs-sphinx-search",
+    "sphinx-copybutton",
+    "myst-parser",          #Markdown sources (revision2026 step R7.1.4); RST stays readable too
+    ]
+#the printable documentation, "exudev docs --pdf" (revision2026b step RG3.3, #2586). NOT in the
+#docs group: Read the Docs builds html only, and this group also needs a LaTeX installation
+#(MiKTeX or TeX Live with xelatex), which pip cannot provide.
+pdf = [
+    #nothing from pip: the flow charts are committed as PDF and SVG (tools/buildFigures.py, #2812),
+    #and recompiling one needs the LaTeX installation this group already assumes
+    ]
+lint = [
+    "pydoclint==0.9.1",     #the baseline tools/ci/pydoclintBaseline.txt holds this version's messages
+    "ruff==0.16.8",         #pinned for the same reason: tools/ci/ruffBaseline.txt holds this
+                            #version's messages, and the rule set of a family can change with a
+                            #ruff release (revision2026 step R5.5)
+    "mypy==2.3.1",          #only for its stubtest: 'python tools/checkPython.py --stubs' compares
+                            #the .pyi files against the imported module (revision2026 step R5.5.4).
+                            #Pinned as well - tools/ci/stubtestBaseline.txt holds its messages
+    ]
+build = [
+    "setuptools>=77",       #same floor as build-system.requires: SPDX licence expression (#2372)
+    "wheel",
+    "pybind11<3.0",         #a direct 'python setup.py bdist_wheel' has no build isolation
+    "tomli; python_version < '3.11'",   #setup.py reads [tool.exudyn]; tomllib is stdlib from 3.11
+    "cibuildwheel==3.4.1",  #the version .github/workflows/wheels.yml pins, so a wheel can be built
+                            #locally exactly as CI builds it
+    ]
+#the pytest tools of revision2026 step R5.1; DEV tools, not a dependency of the package - the test
+#suite itself runs without them, which is why they are not in [project.optional-dependencies]
+test = [
+    "pytest>=8",
+    "pytest-xdist>=3",      #'pytest -n 8'; the models run in separate processes anyway
+    "quickjs",              #test_issueTracker parses the script of the issue page (it came with mermaidx before #2812)
+    ]
+ide = [
+    "spyder-kernels==3.*",  #must match the Spyder version, see docs/howTo/condaEnvironments.md
+    "ipykernel",
+    "ipywidgets",
+    ]
+dev = [
+    {include-group = "docs"},
+    {include-group = "pdf"},
+    {include-group = "lint"},
+    {include-group = "build"},
+    {include-group = "ide"},
+    {include-group = "test"},
+    #scipy 1.18.0 slows the test suite from ~22 s to over 10 min (revision2026 fact 19), so it is pinned where 1.15.2
+    #has wheels; not on macOS and not on Python 3.14+, where it cannot be installed (#2886)
+    "scipy==1.15.2; python_version < '3.14' and sys_platform != 'darwin'",
+    "scipy; python_version >= '3.14' or sys_platform == 'darwin'",
+    "jinja2",               #templates were measured in revision2026 step R4.4.2; kept available for the generators
+    "griffe",               #static API inspection (revision2026 step R4.8 left it available)
+    ]
+
+#pytest collector of the test models (revision2026 step R5.1): 'pytest' from the repository root runs
+#python/testing/test_testModels.py, which judges every model exactly as runTestSuite.py does.
+#pytest and pytest-xdist are DEV tools, not a runtime or test dependency of the package: the suite
+#itself runs without them, which is why they are not in [project.optional-dependencies].
+#NOTE: do not run pytest with python/ as working directory - the untracked scratch file
+#python/pytest.py would shadow the pytest module (revision2026 step R3.1).
+[tool.pytest.ini_options]
+testpaths = ['python/testing']
+addopts = '-q'
+#markers of revision2026 step R5.2; the data behind them lives in runTestSuiteRefSol.py
+markers = [
+    'slow: takes noticeably longer than the other models',
+    'optionalPackage: needs a package outside the tests extra (ngsolve, stable_baselines3, ...)',
+    'sensitive: chaotic or unseeded - runs, but its value is not judged',
+    'unresolvedOnLinux: known Windows/Linux difference - value judged on Windows only',
+    ]
+
+#Docstring check of the Python package (revision2026 step R4.8): 'pydoclint --config=pyproject.toml python/exudyn'.
+#Google style; type hints are neither required in signatures nor in docstrings, return types and
+#raised exceptions are not checked - the check is that documented arguments match the signature.
+#Findings present when the check was introduced are listed in the baseline, so only new ones fail;
+#fixed ones are removed with 'pydoclint --config=pyproject.toml --generate-baseline=True python/exudyn'.
+#itemInterface.py is generated and checked too (revision2026 step R4.23); its docstrings come from itemInterfaceEmitter.py.
+#Its DOC108 findings are deliberate and in the baseline: a user function parameter carries its Protocol type (#2664).
+#'exudev generate --all-checks' runs this check locally as well (#2747).
+[tool.pydoclint]
+style = 'google'
+arg-type-hints-in-signature = false
+arg-type-hints-in-docstring = false
+check-return-types = false
+skip-checking-raises = true
+allow-init-docstring = true
+check-class-attributes = false
+should-document-star-arguments = false
+baseline = 'tools/ci/pydoclintBaseline.txt'
+auto-regenerate-baseline = false
+
+#Linter of the Python package (revision2026 step R5.5): 'python tools/checkPython.py --check'.
+#The rule set is written down explicitly rather than relying on "ruff's default", because that
+#default is not stable across ruff versions - with ruff 0.16 an unconfigured run reports 2236
+#findings against the 565 of the four families below.
+#  F        pyflakes: undefined names, names defined twice, unused imports - real defects
+#  E4/E7/E9 the part of pycodestyle that is not whitespace: import placement, '== None',
+#           bare 'except:', a file that does not parse
+#E1/E2/E3 (indentation, blank lines, spaces around operators) stay OFF on purpose: thousands of
+#findings that say nothing about correctness. 'ruff format' is not used at all - it would rewrite
+#every file in the package.
+#Findings that were present when the check was introduced are tolerated through
+#tools/ci/ruffBaseline.txt; a new one fails the check. See tools/checkPython.py.
+[tool.ruff]
+#the generated stub files are not source: they are checked against the module itself instead
+extend-exclude = ["python/exudyn/__init__.pyi", "python/exudyn/symbolic.pyi"]
+target-version = "py310"    #same floor as project.requires-python
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+#E701/E702/E703 are about statements sharing a line - "if verbose: exu.Print(...)", "import x; x.f()".
+#That is the established style of this package (163 occurrences, and the suppression one-liners of
+#revision2026 step R5.17.1 are written that way on purpose), so these are switched off rather than
+#carried in the baseline: a gate that fights the house style is a gate that gets turned off.
+ignore = ["E701", "E702", "E703"]
+
+#cibuildwheel settings that do not depend on the CI matrix (revision2026 step R2.7). cibuildwheel
+#reads this table from the package directory it is pointed at, which since the flatten (revision2026 step R3.1)
+#is the repository root - the same directory as this file. Only CIBW_BUILD stays in the workflow,
+#because it is built from the matrix entry.
+#Keeping them here rather than in workflow env: they are checked into the same file as the rest of
+#the packaging metadata, they can be exercised locally with 'cibuildwheel --print-build-identifiers',
+#and a typo is a TOML parse error instead of a silently unset variable - which is not hypothetical,
+#CIBW_BUILD_VERBOSITY had been swallowed into a trailing YAML comment and never applied.
+[tool.cibuildwheel]
+skip = ["*-win32", "*-win_arm64", "*musllinux*"]
+archs = ["auto64"]
+build-verbosity = 1
+#the x86_64 half of a universal2 wheel cannot run on an arm64 runner
+test-skip = "*universal2:x86_64"
+test-requires = ["numpy", "matplotlib", "scipy"]
+
+[tool.cibuildwheel.linux]
+before-all = "dnf install -y epel-release && dnf install -y mesa-libGL-devel mesa-libGLU-devel glfw-devel freeglut-devel libX11-devel"
+test-command = "cd {project}/python/testing && python runTestSuite.py -quiet -local --exit-code"
+
+[tool.cibuildwheel.macos]
+archs = ["universal2"]
+environment = { MACOSX_DEPLOYMENT_TARGET = "11.0" }
+test-command = "cd {project}/python/testing && python runTestSuite.py -quiet -local --exit-code"
+
+[tool.cibuildwheel.windows]
+#re-enabled 2026-08-05 after a strange exit code on Windows had disabled it since 2024-10-09
+test-command = "cd /d {project}/python/testing && python runTestSuite.py -quiet -local --exit-code"
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#Build switches, read by setup.py. These are the DEFAULTS; they are never rewritten during a
+#build. Resolution order, highest first (revision2026 step R2.14):
+#
+#  1. command line     --parallel / --no-parallel, --quiet / --no-quiet, ...
+#  2. environment      EXUDYN_COMPILE_PARALLEL=0|1, EXUDYN_QUIET_COMPILE=0|1, ...
+#  3. [tool.exudyn]    this table
+#  4. built-in default in setup.py, used only when this table is absent
+#
+#This replaces setupPyConfig.json, which was TRACKED AND MUTABLE: tools/ci/buildManylinux.sh had
+#to rewrite it with sed and restore it from a trap, so a failed build left the working tree dirty,
+#and revision2026 step R2.4 ended up shipping the maintainer's local toggles inside the sdist. The environment
+#layer exists precisely so CI can override a switch without touching a file. The old file also
+#used the strings "True"/"False" because JSON was being hand-edited; these are real booleans.
+[tool.exudyn]
+USEGLFW = true              #compile with GLFW/OpenGL graphics; false e.g. for a compute cluster
+compileParallel = true      #compile the 133 sources with all available threads
+quietCompile = true         #print a counter instead of every compiler command line
+minimalCppFiles = false     #compile the 54-file minimal set - for testing only
+compileExudynFast = true    #additionally build the exudynCPPfast variant (no range checks)
+performUnitTests = false    #compile the lest C++ unit tests (src/Tests/) into the module; they
+                            #are then run by exudyn.special.RunCppUnitTests() and by
+                            #runTestSuite.py. A developer tool: off for a shipped wheel, on in
+                            #the VS Debug configuration (revision2026 step R5.3, #2464)
+useAVX2 = true              #vector extensions, effective ONLY inside exudynCPPfast; the default
+                            #module is baseline ISA on every platform and needs no CPU check
+                            #(revision2026 step R2.10, #2466)
+useAVX512 = false           #AVX-512 instead of AVX2 in the fast module; requires useAVX2. Exists
+                            #to be measured, not to be shipped: no gain on Zen 5 (fact 27)
+
+[tool.setuptools]
+zip-safe = false
+platforms = ["any"] #2022-03-20: used in numpy - may improve behavior in pypi.org?

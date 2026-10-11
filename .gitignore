@@ -1,0 +1,15 @@
+# Generated environments and results do not belong in the learning library.
+.venv/
+venv/
+__pycache__/
+*.pyc
+build/
+dist/
+*.odb
+*.sta
+*.sim
+*.lck
+*.log
+.DS_Store
+Thumbs.db
+
