@@ -1,0 +1,236 @@
+{
+  "title": "功能缺口补充文献",
+  "checked_on": "2026-10-11",
+  "base_papers": 100,
+  "new_papers": 7,
+  "journal_articles": 6,
+  "preprints": 1,
+  "recent_2020_2026": 6,
+  "papers": [
+    {
+      "id": "L101",
+      "title": "Mixed isogeometric collocation for geometrically exact 3D beams with elasto-visco-plastic material behavior and softening effects",
+      "authors": [
+        "Oliver Weeger",
+        "Dominik Schillinger",
+        "Ralf Müller"
+      ],
+      "year": 2022,
+      "journal": "Computer Methods in Applied Mechanics and Engineering",
+      "volume": "399",
+      "issue": null,
+      "pages": "115456",
+      "article_number": "115456",
+      "record_type": "journal_article",
+      "doi": "10.1016/j.cma.2022.115456",
+      "modules": [
+        "F02",
+        "F03",
+        "F07"
+      ],
+      "priority": "核心：塑性状态",
+      "source_url": "https://d-nb.info/1255771364/34",
+      "relevance_zh": "三维 Cosserat 梁以局部内变量描述塑性和各向同性／随动硬化，可用于审查状态布局、局部更新与一致线性化。",
+      "boundary_zh": "应力合力层级的通用梁方法仍需核验截面屈服面和金丝参数；粘弹性与软化不是金丝首版的默认物理项。",
+      "reading_scope": "题录、摘要、公开全文结论及代码可用性段；未逐式推导或复现。",
+      "code_status": "论文说明实现基于 G+SMo，但未包含在 G+SMo 中，仅可向作者合理请求。不能记作已取得开源实现。",
+      "checked_on": "2026-10-11",
+      "metadata_verification": "Crossref 精确 DOI + 公开原始来源",
+      "evidence_level": "题录及注明范围的原始来源，未复现"
+    },
+    {
+      "id": "L102",
+      "title": "Anomalous Plasticity in the Cyclic Torsion of Micron Scale Metallic Wires",
+      "authors": [
+        "Dabiao Liu",
+        "Yuming He",
+        "D. J. Dunstan",
+        "Bo Zhang",
+        "Zhipeng Gan",
+        "Peng Hu",
+        "Huaming Ding"
+      ],
+      "year": 2013,
+      "journal": "Physical Review Letters",
+      "volume": "110",
+      "issue": "24",
+      "pages": null,
+      "article_number": "244301",
+      "record_type": "journal_article",
+      "doi": "10.1103/physrevlett.110.244301",
+      "modules": [
+        "F03",
+        "F09"
+      ],
+      "priority": "核心：直接金微丝证据",
+      "source_url": "https://doi.org/10.1103/PhysRevLett.110.244301",
+      "relevance_zh": "微米尺度铜与金丝的循环扭转试验显示反向加载不对称及卸载期间的反向塑性，可为历史本构选择提供实验动机。",
+      "boundary_zh": "扭转试验不能直接提供成弧弯曲、热影响区或高速工艺的硬化参数；不据此强制采用应变梯度模型。虽较早，因直接金微丝证据保留。",
+      "reading_scope": "APS 出版题录与摘要；主体全文未核验。",
+      "code_status": "本次未取得可复用计算代码。",
+      "checked_on": "2026-10-11",
+      "metadata_verification": "Crossref 精确 DOI + 公开原始来源",
+      "evidence_level": "题录及注明范围的原始来源，未复现"
+    },
+    {
+      "id": "L103",
+      "title": "Codimensional Incremental Potential Contact",
+      "authors": [
+        "Minchen Li",
+        "Danny M. Kaufman",
+        "Chenfanfu Jiang"
+      ],
+      "year": 2021,
+      "journal": "ACM Transactions on Graphics",
+      "volume": "40",
+      "issue": "4",
+      "pages": "1-24",
+      "article_number": "170",
+      "record_type": "journal_article",
+      "doi": "10.1145/3450626.3459767",
+      "modules": [
+        "F04"
+      ],
+      "priority": "核心：有限线径接触",
+      "source_url": "https://ipc-sim.github.io/C-IPC/",
+      "relevance_zh": "通过距离偏置表达杆／壳几何厚度并结合连续碰撞检测，适合审查线径是否真正进入接触间隙。",
+      "boundary_zh": "属于相应隐式框架，不能把几何保证直接移植到任意显式惩罚接触或金丝塑性模型；有厚度碰撞不等于已有中空瓷嘴模型。",
+      "reading_scope": "作者项目页摘要、代码入口与正式题录；公式和实现未复现。",
+      "code_status": "作者项目页有代码入口。本轮仅登记相关 IPC Toolkit 候选，未安装或复制论文实现。",
+      "checked_on": "2026-10-11",
+      "metadata_verification": "Crossref 精确 DOI + 公开原始来源",
+      "evidence_level": "题录及注明范围的原始来源，未复现"
+    },
+    {
+      "id": "L104",
+      "title": "No Free Slide: Spurious Contact Forces in Incremental Potential Contact",
+      "authors": [
+        "Yinwei Du",
+        "Yue Li",
+        "Stelian Coros",
+        "Bernhard Thomaszewski"
+      ],
+      "year": 2023,
+      "journal": "arXiv",
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "article_number": null,
+      "record_type": "preprint",
+      "doi": "10.48550/arxiv.2308.01696",
+      "version": "2308.01696v1",
+      "source_url": "https://arxiv.org/abs/2308.01696",
+      "modules": [
+        "F04",
+        "F09"
+      ],
+      "priority": "接触诊断",
+      "relevance_zh": "讨论离散接触面引起的切向力不连续，并研究平滑表面处理；可用于设计无摩擦滑动算例，检查出口几何造成的假摩擦。",
+      "boundary_zh": "按本次取得的预印本记录收录，不宣称已核验期刊出版。不是金丝摩擦标定论文，也不能据此否定所有 IPC 配置。",
+      "reading_scope": "arXiv 原题录与摘要；全文和实现未复现。",
+      "code_status": "本次未核验独立可复用源码。",
+      "checked_on": "2026-10-11",
+      "metadata_verification": "arXiv 原始记录",
+      "evidence_level": "题录及注明范围的原始来源，未复现"
+    },
+    {
+      "id": "L105",
+      "title": "Geometric Contact Potential",
+      "authors": [
+        "Zizhou Huang",
+        "Maxwell Paik",
+        "Zachary Ferguson",
+        "Daniele Panozzo",
+        "Denis Zorin"
+      ],
+      "year": 2025,
+      "journal": "ACM Transactions on Graphics",
+      "volume": "44",
+      "issue": "4",
+      "pages": "1-24",
+      "article_number": null,
+      "record_type": "journal_article",
+      "doi": "10.1145/3731142",
+      "modules": [
+        "F04",
+        "F09"
+      ],
+      "priority": "近期：接触分辨率",
+      "source_url": "https://arxiv.org/abs/2402.00719",
+      "secondary_url": "https://cims.nyu.edu/gcl/papers/2025-Contact.pdf",
+      "relevance_zh": "从连续接触势出发处理分辨率依赖与静止状态伪力问题，可用于接触几何、参数和网格敏感性审查。",
+      "boundary_zh": "需适配梁几何、有限线径与本项目力学求解路径，不自动解决塑性和工序。2024 初稿 Orientation-aware Incremental Potential Contact 与 2025 改题后的正式论文合并，不重复计数。",
+      "reading_scope": "arXiv 当前版本摘要、机构论文题录与 Crossref 正式记录；未逐式推导。",
+      "code_status": "本次未核验单独实现的许可和集成路径。",
+      "checked_on": "2026-10-11",
+      "metadata_verification": "Crossref 精确 DOI + 公开原始来源",
+      "evidence_level": "题录及注明范围的原始来源，未复现"
+    },
+    {
+      "id": "L106",
+      "title": "Incremental Potential Contact: Intersection- and Inversion-free, Large-Deformation Dynamics",
+      "authors": [
+        "Minchen Li",
+        "Zachary Ferguson",
+        "Teseo Schneider",
+        "Timothy Langlois",
+        "Denis Zorin",
+        "Daniele Panozzo",
+        "Chenfanfu Jiang",
+        "Danny M. Kaufman"
+      ],
+      "year": 2020,
+      "journal": "ACM Transactions on Graphics",
+      "volume": "39",
+      "issue": "4",
+      "pages": null,
+      "article_number": "49",
+      "record_type": "journal_article",
+      "doi": "10.1145/3386569.3392425",
+      "modules": [
+        "F04",
+        "F07"
+      ],
+      "priority": "接触基础",
+      "source_url": "https://ipc-sim.github.io/",
+      "relevance_zh": "基础 IPC 工作，可用于理解接触势、连续碰撞检测与隐式求解的配合，避免仅移植单个公式就宣称取得无穿透性质。",
+      "boundary_zh": "通用非线性弹性动力学，不含金丝历史塑性、供丝和第二端事件；仅采用部分工具不自动满足完整算法条件。",
+      "reading_scope": "作者项目页摘要、代码入口与 Crossref 题录；未复现。",
+      "code_status": "作者项目提供代码入口，相关 IPC Toolkit 是接触工具库，官方明确不包含完整物理模型或求解器。",
+      "checked_on": "2026-10-11",
+      "metadata_verification": "Crossref 精确 DOI + 公开原始来源",
+      "evidence_level": "题录及注明范围的原始来源，未复现"
+    },
+    {
+      "id": "L107",
+      "title": "Machine learning-driven process optimization for ultra-low loop wedge bonding in monolithic microwave integrated circuit packaging",
+      "authors": [
+        "Byung-Geon Park",
+        "Jae-Hak Lee",
+        "Ah-Young Park"
+      ],
+      "year": 2026,
+      "journal": "Journal of Intelligent Manufacturing",
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "article_number": null,
+      "record_type": "journal_article",
+      "doi": "10.1007/s10845-026-02928-x",
+      "modules": [
+        "F01",
+        "F09"
+      ],
+      "priority": "后续：工艺优化",
+      "source_url": "https://link.springer.com/article/10.1007/s10845-026-02928-x",
+      "relevance_zh": "将正交试验、工艺可行性分类与线形回归结合，可为低弧工艺试验设计和参数筛选提供近期参考。",
+      "boundary_zh": "楔焊的数据驱动研究不替代金丝球焊历史力学求解；代理模型应放在验证过的力学首版之后。性能只代表论文工况。",
+      "reading_scope": "出版商摘要、发表日期及公开附录；主体全文未逐节核验。",
+      "code_status": "使用开源 ML 框架不代表论文完整数据与训练脚本已经开放。",
+      "year_note": "2026-07-16 在线发表，按版本记录年份收录。",
+      "checked_on": "2026-10-11",
+      "metadata_verification": "Crossref 精确 DOI + 公开原始来源",
+      "evidence_level": "题录及注明范围的原始来源，未复现"
+    }
+  ]
+}

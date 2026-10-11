@@ -1,0 +1,500 @@
+{
+  "checked_on": "2026-10-11",
+  "scope": "公开学习资源整理；未开发算法或运行新计算",
+  "source_snapshot_files": 44,
+  "literature_records": 107,
+  "recommendation": "基于现有框架二次开发",
+  "evidence_note": "源码接口或公开文献支持不等于已集成、已标定或已复现",
+  "modules": [
+    {
+      "id": "F01",
+      "name": "瓷嘴轨迹和工序时序",
+      "status": "框架可复用，工艺层需开发",
+      "source_paths": [
+        "third_party/chrono/src/demos/fea/demo_FEA_beams_extrude.cpp",
+        "third_party/exudyn/python/TestModels/ANCFslidingAndALEjointTest.py"
+      ],
+      "papers": [
+        "L012",
+        "L023",
+        "L025",
+        "L107"
+      ],
+      "gap": "轨迹格式、连续插值、阶段事件及供丝时序",
+      "references": [
+        {
+          "id": "L012",
+          "title": "Rationally Designing the Trace of Wire Bonder Head for Large-Span-Ratio Wire Bonding in 3D Stacked Packaging",
+          "year": 2020,
+          "doi": "10.1109/access.2020.3037338",
+          "url": "https://doi.org/10.1109/access.2020.3037338"
+        },
+        {
+          "id": "L023",
+          "title": "Modeling and Experimental Study of the Kink Formation Process in Wire Bonding",
+          "year": 2014,
+          "doi": "10.1109/tsm.2012.2225649",
+          "url": "https://doi.org/10.1109/tsm.2012.2225649"
+        },
+        {
+          "id": "L025",
+          "title": "Variable-Length Link-Spring Model of Wire-Bonding Looping Process",
+          "year": 2013,
+          "doi": "10.1109/tcpmt.2013.2237773",
+          "url": "https://doi.org/10.1109/tcpmt.2013.2237773"
+        },
+        {
+          "id": "L107",
+          "title": "Machine learning-driven process optimization for ultra-low loop wedge bonding in monolithic microwave integrated circuit packaging",
+          "year": 2026,
+          "doi": "10.1007/s10845-026-02928-x",
+          "url": "https://doi.org/10.1007/s10845-026-02928-x"
+        }
+      ]
+    },
+    {
+      "id": "F02",
+      "name": "大转动梁和杆",
+      "status": "框架可复用，需适配",
+      "source_paths": [
+        "third_party/chrono/src/chrono/fea/ChElementBeamIGA.cpp",
+        "third_party/exudyn/src/ImplObjects/CObjectANCFCable2D.cpp",
+        "third_party/pyelastica/elastica/rod/cosserat_rod.py"
+      ],
+      "papers": [
+        "L070",
+        "L082",
+        "L086",
+        "L101"
+      ],
+      "gap": "选定一种运动学及截面假设，不能混用离散公式",
+      "references": [
+        {
+          "id": "L070",
+          "title": "Two-scale off-and online approaches to geometrically exact elastoplastic rods",
+          "year": 2023,
+          "doi": "10.1007/s00466-022-02204-8",
+          "url": "https://doi.org/10.1007/s00466-022-02204-8"
+        },
+        {
+          "id": "L082",
+          "title": "A finite element formulation for a direct approach to elastoplasticity in special Cosserat rods",
+          "year": 2021,
+          "doi": "10.1002/nme.6566",
+          "url": "https://doi.org/10.1002/nme.6566"
+        },
+        {
+          "id": "L086",
+          "title": "Discrete Elasto-Plastic Rods",
+          "year": 2020,
+          "doi": "10.1016/j.eml.2020.100767",
+          "url": "https://doi.org/10.1016/j.eml.2020.100767"
+        },
+        {
+          "id": "L101",
+          "title": "Mixed isogeometric collocation for geometrically exact 3D beams with elasto-visco-plastic material behavior and softening effects",
+          "year": 2022,
+          "doi": "10.1016/j.cma.2022.115456",
+          "url": "https://doi.org/10.1016/j.cma.2022.115456"
+        }
+      ]
+    },
+    {
+      "id": "F03",
+      "name": "历史相关截面塑性和反向弯曲",
+      "status": "核心缺口，需开发",
+      "source_paths": [
+        "third_party/chrono/src/chrono/fea/ChBeamSectionCosserat.h",
+        "third_party/chrono/src/chrono/fea/ChBeamSectionCosserat.cpp"
+      ],
+      "papers": [
+        "L023",
+        "L040",
+        "L070",
+        "L078",
+        "L082",
+        "L086",
+        "L101",
+        "L102"
+      ],
+      "gap": "纤维截面、塑性应变、背应力、硬化、试算提交回滚及金丝标定",
+      "references": [
+        {
+          "id": "L023",
+          "title": "Modeling and Experimental Study of the Kink Formation Process in Wire Bonding",
+          "year": 2014,
+          "doi": "10.1109/tsm.2012.2225649",
+          "url": "https://doi.org/10.1109/tsm.2012.2225649"
+        },
+        {
+          "id": "L040",
+          "title": "Effect of Mechanical Characteristics of Gold Wire on Microstructure and Properties of Ball Bonding",
+          "year": 2022,
+          "doi": null,
+          "url": "https://rmme.ijournals.cn/rmme/article/html/20210875?st=search"
+        },
+        {
+          "id": "L070",
+          "title": "Two-scale off-and online approaches to geometrically exact elastoplastic rods",
+          "year": 2023,
+          "doi": "10.1007/s00466-022-02204-8",
+          "url": "https://doi.org/10.1007/s00466-022-02204-8"
+        },
+        {
+          "id": "L078",
+          "title": "Analysis of springback for multiple bending considering nonlinear unloading-reloading behavior, stress inheritance and Bauschinger effect",
+          "year": 2022,
+          "doi": "10.1016/j.jmatprotec.2022.117657",
+          "url": "https://doi.org/10.1016/j.jmatprotec.2022.117657"
+        },
+        {
+          "id": "L082",
+          "title": "A finite element formulation for a direct approach to elastoplasticity in special Cosserat rods",
+          "year": 2021,
+          "doi": "10.1002/nme.6566",
+          "url": "https://doi.org/10.1002/nme.6566"
+        },
+        {
+          "id": "L086",
+          "title": "Discrete Elasto-Plastic Rods",
+          "year": 2020,
+          "doi": "10.1016/j.eml.2020.100767",
+          "url": "https://doi.org/10.1016/j.eml.2020.100767"
+        },
+        {
+          "id": "L101",
+          "title": "Mixed isogeometric collocation for geometrically exact 3D beams with elasto-visco-plastic material behavior and softening effects",
+          "year": 2022,
+          "doi": "10.1016/j.cma.2022.115456",
+          "url": "https://doi.org/10.1016/j.cma.2022.115456"
+        },
+        {
+          "id": "L102",
+          "title": "Anomalous Plasticity in the Cyclic Torsion of Micron Scale Metallic Wires",
+          "year": 2013,
+          "doi": "10.1103/physrevlett.110.244301",
+          "url": "https://doi.org/10.1103/physrevlett.110.244301"
+        }
+      ]
+    },
+    {
+      "id": "F04",
+      "name": "中空瓷嘴和有限线径接触摩擦",
+      "status": "基础接触可复用，专用接触需开发",
+      "source_paths": [
+        "third_party/chrono/src/chrono/physics/ChContactSMC.cpp",
+        "third_party/exudyn/src/ImplObjects/CObjectContactFrictionCircleCable2D.cpp",
+        "third_party/pyelastica/elastica/_contact_functions.py"
+      ],
+      "papers": [
+        "L023",
+        "L072",
+        "L103",
+        "L104",
+        "L105",
+        "L106"
+      ],
+      "external_sources": [
+        "https://github.com/ipc-sim/ipc-toolkit"
+      ],
+      "gap": "内孔和出口圆角、线径间隙、粘滑、接触尺度和伪力核验",
+      "references": [
+        {
+          "id": "L023",
+          "title": "Modeling and Experimental Study of the Kink Formation Process in Wire Bonding",
+          "year": 2014,
+          "doi": "10.1109/tsm.2012.2225649",
+          "url": "https://doi.org/10.1109/tsm.2012.2225649"
+        },
+        {
+          "id": "L072",
+          "title": "A Fully Implicit Method for Robust Frictional Contact Handling in Elastic Rods",
+          "year": 2023,
+          "doi": "10.1016/j.eml.2022.101924",
+          "url": "https://doi.org/10.1016/j.eml.2022.101924"
+        },
+        {
+          "id": "L103",
+          "title": "Codimensional Incremental Potential Contact",
+          "year": 2021,
+          "doi": "10.1145/3450626.3459767",
+          "url": "https://doi.org/10.1145/3450626.3459767"
+        },
+        {
+          "id": "L104",
+          "title": "No Free Slide: Spurious Contact Forces in Incremental Potential Contact",
+          "year": 2023,
+          "doi": "10.48550/arxiv.2308.01696",
+          "url": "https://doi.org/10.48550/arxiv.2308.01696"
+        },
+        {
+          "id": "L105",
+          "title": "Geometric Contact Potential",
+          "year": 2025,
+          "doi": "10.1145/3731142",
+          "url": "https://doi.org/10.1145/3731142"
+        },
+        {
+          "id": "L106",
+          "title": "Incremental Potential Contact: Intersection- and Inversion-free, Large-Deformation Dynamics",
+          "year": 2020,
+          "doi": "10.1145/3386569.3392425",
+          "url": "https://doi.org/10.1145/3386569.3392425"
+        }
+      ]
+    },
+    {
+      "id": "F05",
+      "name": "供丝与材料身份",
+      "status": "机制可借鉴，历史传递需开发",
+      "source_paths": [
+        "third_party/chrono/src/chrono/fea/ChBuilderBeam.cpp",
+        "third_party/exudyn/src/ImplObjects/CObjectALEANCFCable2D.cpp",
+        "third_party/exudyn/python/exudyn/beams.py"
+      ],
+      "papers": [
+        "L013",
+        "L025",
+        "L065",
+        "L086"
+      ],
+      "gap": "材料参考弧长和ID保持，塑性历史输运与新旧材料区分",
+      "references": [
+        {
+          "id": "L013",
+          "title": "Study of Complex Looping With Five Kinks in Thermosonic Wire Bonding by Using Variable-Length Link-Spring Model",
+          "year": 2019,
+          "doi": "10.1109/tcpmt.2018.2881224",
+          "url": "https://doi.org/10.1109/tcpmt.2018.2881224"
+        },
+        {
+          "id": "L025",
+          "title": "Variable-Length Link-Spring Model of Wire-Bonding Looping Process",
+          "year": 2013,
+          "doi": "10.1109/tcpmt.2013.2237773",
+          "url": "https://doi.org/10.1109/tcpmt.2013.2237773"
+        },
+        {
+          "id": "L065",
+          "title": "A Stationary Streamline Integration Algorithm for Elastic-Plastic Bending of an Axially Moving Beam",
+          "year": 2024,
+          "doi": "10.4203/ccc.9.6.1",
+          "url": "https://doi.org/10.4203/ccc.9.6.1"
+        },
+        {
+          "id": "L086",
+          "title": "Discrete Elasto-Plastic Rods",
+          "year": 2020,
+          "doi": "10.1016/j.eml.2020.100767",
+          "url": "https://doi.org/10.1016/j.eml.2020.100767"
+        }
+      ]
+    },
+    {
+      "id": "F06",
+      "name": "第二端连接和工具作用解除",
+      "status": "本库暂无成套工序实现，需开发",
+      "source_paths": [
+        "third_party/pyelastica/elastica/boundary_conditions.py",
+        "third_party/exudyn/src/ImplObjects/CObjectJointSliding2D.cpp"
+      ],
+      "papers": [
+        "L023",
+        "L025",
+        "L026"
+      ],
+      "gap": "当前构形连接、保留历史、分阶段解除作用和事件状态机",
+      "landing_check": "skipped_by_user",
+      "references": [
+        {
+          "id": "L023",
+          "title": "Modeling and Experimental Study of the Kink Formation Process in Wire Bonding",
+          "year": 2014,
+          "doi": "10.1109/tsm.2012.2225649",
+          "url": "https://doi.org/10.1109/tsm.2012.2225649"
+        },
+        {
+          "id": "L025",
+          "title": "Variable-Length Link-Spring Model of Wire-Bonding Looping Process",
+          "year": 2013,
+          "doi": "10.1109/tcpmt.2013.2237773",
+          "url": "https://doi.org/10.1109/tcpmt.2013.2237773"
+        },
+        {
+          "id": "L026",
+          "title": "Experimental and Modeling Studies of Looping Process for Wire Bonding",
+          "year": 2013,
+          "doi": "10.1115/1.4025667",
+          "url": "https://doi.org/10.1115/1.4025667"
+        }
+      ]
+    },
+    {
+      "id": "F07",
+      "name": "积分、稳定性和加载方式",
+      "status": "积分框架可复用，数值控制需适配",
+      "source_paths": [
+        "third_party/pyelastica/elastica/timestepper/symplectic_steppers.py",
+        "third_party/chrono/src/demos/python/fea/demo_FEA_beamsIGA.py"
+      ],
+      "papers": [
+        "L012",
+        "L026",
+        "L072",
+        "L101",
+        "L106"
+      ],
+      "gap": "历史本构耦合、接触稳定步长、能量与加载时间敏感性",
+      "references": [
+        {
+          "id": "L012",
+          "title": "Rationally Designing the Trace of Wire Bonder Head for Large-Span-Ratio Wire Bonding in 3D Stacked Packaging",
+          "year": 2020,
+          "doi": "10.1109/access.2020.3037338",
+          "url": "https://doi.org/10.1109/access.2020.3037338"
+        },
+        {
+          "id": "L026",
+          "title": "Experimental and Modeling Studies of Looping Process for Wire Bonding",
+          "year": 2013,
+          "doi": "10.1115/1.4025667",
+          "url": "https://doi.org/10.1115/1.4025667"
+        },
+        {
+          "id": "L072",
+          "title": "A Fully Implicit Method for Robust Frictional Contact Handling in Elastic Rods",
+          "year": 2023,
+          "doi": "10.1016/j.eml.2022.101924",
+          "url": "https://doi.org/10.1016/j.eml.2022.101924"
+        },
+        {
+          "id": "L101",
+          "title": "Mixed isogeometric collocation for geometrically exact 3D beams with elasto-visco-plastic material behavior and softening effects",
+          "year": 2022,
+          "doi": "10.1016/j.cma.2022.115456",
+          "url": "https://doi.org/10.1016/j.cma.2022.115456"
+        },
+        {
+          "id": "L106",
+          "title": "Incremental Potential Contact: Intersection- and Inversion-free, Large-Deformation Dynamics",
+          "year": 2020,
+          "doi": "10.1145/3386569.3392425",
+          "url": "https://doi.org/10.1145/3386569.3392425"
+        }
+      ]
+    },
+    {
+      "id": "F08",
+      "name": "线形和残余状态输出",
+      "status": "状态布局可复用，指标层需开发",
+      "source_paths": [
+        "third_party/pyelastica/elastica/rod/cosserat_rod.py",
+        "third_party/pyelastica/elastica/rod/factory_function.py"
+      ],
+      "papers": [
+        "L007",
+        "L023",
+        "L026"
+      ],
+      "gap": "按材料弧长输出中心线、弧高、拐点、反力和塑性残余状态",
+      "references": [
+        {
+          "id": "L007",
+          "title": "Machine learning enables accurate wire loop profile prediction for advanced microelectronics packaging",
+          "year": 2022,
+          "doi": "10.1016/j.jmapro.2022.09.059",
+          "url": "https://doi.org/10.1016/j.jmapro.2022.09.059"
+        },
+        {
+          "id": "L023",
+          "title": "Modeling and Experimental Study of the Kink Formation Process in Wire Bonding",
+          "year": 2014,
+          "doi": "10.1109/tsm.2012.2225649",
+          "url": "https://doi.org/10.1109/tsm.2012.2225649"
+        },
+        {
+          "id": "L026",
+          "title": "Experimental and Modeling Studies of Looping Process for Wire Bonding",
+          "year": 2013,
+          "doi": "10.1115/1.4025667",
+          "url": "https://doi.org/10.1115/1.4025667"
+        }
+      ]
+    },
+    {
+      "id": "F09",
+      "name": "标定与Abaqus及实验对照",
+      "status": "方法依据已有，数据与实施需补齐",
+      "source_paths": [],
+      "papers": [
+        "L040",
+        "L043",
+        "L048",
+        "L070",
+        "L088",
+        "L089",
+        "L102",
+        "L107"
+      ],
+      "gap": "适用金丝数据，独立线形观测和数值敏感性",
+      "references": [
+        {
+          "id": "L040",
+          "title": "Effect of Mechanical Characteristics of Gold Wire on Microstructure and Properties of Ball Bonding",
+          "year": 2022,
+          "doi": null,
+          "url": "https://rmme.ijournals.cn/rmme/article/html/20210875?st=search"
+        },
+        {
+          "id": "L043",
+          "title": "The combined effects of grain and sample sizes on the mechanical properties and fracture modes of gold microwires",
+          "year": 2019,
+          "doi": "10.1016/j.jmst.2018.09.012",
+          "url": "https://doi.org/10.1016/j.jmst.2018.09.012"
+        },
+        {
+          "id": "L048",
+          "title": "Size effects in thin coarse-grained gold microwires under tensile and torsional loading",
+          "year": 2015,
+          "doi": "10.1016/j.actamat.2014.12.034",
+          "url": "https://doi.org/10.1016/j.actamat.2014.12.034"
+        },
+        {
+          "id": "L070",
+          "title": "Two-scale off-and online approaches to geometrically exact elastoplastic rods",
+          "year": 2023,
+          "doi": "10.1007/s00466-022-02204-8",
+          "url": "https://doi.org/10.1007/s00466-022-02204-8"
+        },
+        {
+          "id": "L088",
+          "title": "A cyclic shear-based identification framework for kinematic hardening: application to improved springback prediction in sheet metal forming",
+          "year": 2026,
+          "doi": "10.1088/2631-8695/ae8b7c",
+          "url": "https://doi.org/10.1088/2631-8695/ae8b7c"
+        },
+        {
+          "id": "L089",
+          "title": "Identification of Combined Isotropic–Kinematic Hardening Parameters from Reverse Bending Tests Using Recurrent Neural Networks",
+          "year": 2026,
+          "doi": "10.3390/met16091030",
+          "url": "https://doi.org/10.3390/met16091030"
+        },
+        {
+          "id": "L102",
+          "title": "Anomalous Plasticity in the Cyclic Torsion of Micron Scale Metallic Wires",
+          "year": 2013,
+          "doi": "10.1103/physrevlett.110.244301",
+          "url": "https://doi.org/10.1103/physrevlett.110.244301"
+        },
+        {
+          "id": "L107",
+          "title": "Machine learning-driven process optimization for ultra-low loop wedge bonding in monolithic microwave integrated circuit packaging",
+          "year": 2026,
+          "doi": "10.1007/s10845-026-02928-x",
+          "url": "https://doi.org/10.1007/s10845-026-02928-x"
+        }
+      ]
+    }
+  ]
+}

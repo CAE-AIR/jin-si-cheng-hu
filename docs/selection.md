@@ -4,6 +4,8 @@
 
 ## 推荐
 
+本轮补充入口：[9模块资源地图](resource-map/README.md)、[缺口与最小方案](resource-map/gaps-and-mvp.md)、[最新维护核验](resource-map/maintenance.md)、[功能缺口补充文献](literature/2026-10-11/supplement/README.md)。下面保留原选型依据与固定版本边界。
+
 优先评估基于 Chrono 底座开发：复用大转动梁、方程组装、动力积分、约束和接触接口；专用纤维截面、硬化历史、供丝边界及工序事件需要自行实现和验证。EXUDYN 为二维滑动与 ALE 的备选参考，PyElastica 用于杆离散、接触与积分实现的交叉学习。
 
 ## 维护证据与部署成本
@@ -38,4 +40,3 @@
 - [Chrono SWIG 绑定](../third_party/chrono/src/chrono_swig/interface/fea/ChModuleFea.i)
 - [EXUDYN 非线性材料回调示例](../third_party/exudyn/python/TestModels/ANCFcable2DuserFunction.py)
 - [PyElastica 弹性本构](../third_party/pyelastica/elastica/rod/cosserat_rod.py)
-
