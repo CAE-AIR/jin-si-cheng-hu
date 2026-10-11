@@ -16,5 +16,5 @@
 
 ## 完整源码和运行
 
-本库只收16个原文件。完整源码可从 [固定提交](https://github.com/projectchrono/chrono/tree/9faf13dd8f1128dd75ed233a9627027b0422c3f7) 获取。遵循 [10.0.0 安装说明](https://api.projectchrono.org/10.0.0/pychrono_installation.html)。本库 Python IGA 示例依赖 PardisoMKL 和 Irrlicht，实际环境需核查模块可用性。
+本库收录35个原文件，其中19个为 [隐式动力核心补充](../resource-map/implicit-dynamics.md)。完整源码可从 [固定提交](https://github.com/projectchrono/chrono/tree/9faf13dd8f1128dd75ed233a9627027b0422c3f7) 获取。遵循 [10.0.0 安装说明](https://api.projectchrono.org/10.0.0/pychrono_installation.html)。本库 Python IGA 示例依赖 PardisoMKL 和 Irrlicht，实际环境需核查模块可用性。
 

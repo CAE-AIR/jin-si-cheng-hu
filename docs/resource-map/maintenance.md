@@ -4,8 +4,8 @@
 
 | 项目 | 当前维护证据（UTC） | 许可证／学习快照 | 部署与改造难度 | 可采用结论 |
 | --- | --- | --- | --- | --- |
-| Chrono | 未归档、未禁用；[2026-10-11 提交](https://github.com/projectchrono/chrono/commit/d613a4c1f1267bd102db07f774268414f1831211)，修复 FMI 示例挂起／崩溃 | BSD-3-Clause；本库仍锁定 10.0.0 的 16 个文件 | 通用示例需完整发行环境；专用历史截面需核对 C++ 扩展与 Python 绑定，改造成本较高 | 首选通用力学框架参考；金丝材料和工序需二次开发 |
-| EXUDYN | 未归档、未禁用；[2026-10-09 提交](https://github.com/jgerstmayr/EXUDYN/commit/f172eb2c4b8cc1ccb19d722749145d185b9000c6)，测试与无 tkinter 环境适配 | 自定义 General License，GitHub 元数据为 NOASSERTION；本库仍锁定 v1.13.6 的 16 个文件 | Python 示例入口较便捷；有状态材料回调、供丝历史和接触仍需专项验证 | 二维梁、滑动和 ALE 备选参考 |
+| Chrono | 未归档、未禁用；[2026-10-11 提交](https://github.com/projectchrono/chrono/commit/d613a4c1f1267bd102db07f774268414f1831211)，修复 FMI 示例挂起／崩溃 | BSD-3-Clause；本库仍锁定 10.0.0，现收录 35 个文件 | 通用示例需完整发行环境；专用历史截面需核对 C++ 扩展与 Python 绑定，改造成本较高 | 首选通用力学框架参考；金丝材料和工序需二次开发 |
+| EXUDYN | 未归档、未禁用；[2026-10-09 提交](https://github.com/jgerstmayr/EXUDYN/commit/f172eb2c4b8cc1ccb19d722749145d185b9000c6)，测试与无 tkinter 环境适配 | 自定义 General License，GitHub 元数据为 NOASSERTION；本库仍锁定 v1.13.6，现收录 32 个文件 | Python 示例入口较便捷；有状态材料回调、供丝历史和接触仍需专项验证 | 二维梁、滑动和 ALE 备选参考 |
 | PyElastica | 未归档、未禁用；[2026-10-07 提交](https://github.com/GazzolaLab/PyElastica/commit/0688eb4f0d6091288a38367fcea4ac0c57fb0f96)，更新环境依赖 | MIT；本库仍锁定 v1.0.0 的 12 个文件 | Python／NumPy／Numba 路径较便捷；加完整塑性与供丝后已超出原有弹性杆示例范围 | 杆数组、显式积分与接触学习参考 |
 | IPC Toolkit | 未归档、未禁用；[2026-10-07 提交](https://github.com/ipc-sim/ipc-toolkit/commit/0985885fecf157ac7c065c5f461028cc0aebe228)，修复文档发布权限 | MIT；本轮登记为外部候选，未新增源码快照 | C++／CMake 与 Python 绑定；集成力学求解器成本高于运行单个接触示例 | 补充几何碰撞、接触势与摩擦参考；不作为完整成弧软件 |
 

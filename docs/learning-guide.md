@@ -44,3 +44,7 @@ Chrono SMC、EXUDYN CircleCable2D、PyElastica _contact_functions.py 展示不�
 - [PyElastica 源码索引](../third_party/pyelastica/INDEX.md)
 - [版本和逐文件校验](../sources.lock.json)
 
+
+## 隐式动力核心已收录
+
+见 [隐式动力索引](resource-map/implicit-dynamics.md)。Chrono 先看 HHT 时间离散、隐式积分公共 Newton 循环、系统状态修正与线性求解；EXUDYN 先看 SolveSteps／Newton，再看二阶积分器的残差、Jacobian、增量更新和约束装配。新增源码与原快照使用相同固定提交。线性求解后端和完整编译依赖另从上游获取，材料历史协议仍需专项审查。

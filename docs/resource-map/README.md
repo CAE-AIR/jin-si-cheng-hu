@@ -4,6 +4,8 @@
 
 **当前建议：基于现有框架二次开发。** Chrono 作为通用梁力学框架的首选参考，EXUDYN 提供二维梁与送丝约束参考，PyElastica 提供杆状态布局和显式积分参考。三者均不能直接完成经金丝数据验证的全工序成弧预测。最小方案先做单根、平面轨迹、大转动弹塑性梁；具体见 [缺口与 MVP](gaps-and-mvp.md)。
 
+新增 [隐式动力核心索引](implicit-dynamics.md)：HHT、Newmark、Generalized-alpha 的时间离散与 Newton、装配和约束耦合源码已收录；依赖完整上游工程，未编译或运行。
+
 ## 功能与证据对照
 
 “框架可复用”表示有明确接口或示例，不表示已完成专用模型集成；“需开发”表示本库未发现可直接满足该功能的完整实现。“暂无成套实现”只针对本库，不能推断整个领域都没有。
@@ -16,7 +18,7 @@
 | F04 中空瓷嘴、有限线径接触与摩擦 | [ChContactSMC.cpp](../../third_party/chrono/src/chrono/physics/ChContactSMC.cpp)、[圆形–梁接触](../../third_party/exudyn/src/ImplObjects/CObjectContactFrictionCircleCable2D.cpp)、[杆–圆柱接触核](../../third_party/pyelastica/elastica/_contact_functions.py)；另见 [IPC Toolkit 外部候选](maintenance.md#ipc-toolkit) | 内孔／出口圆角几何、线径间隙、粘滑、接触参数、微尺度稳定性；有限厚度和伪切向力核验 | L023、L072、L103、L104、L105、L106 | 基础接触可复用，专用接触需开发 |
 | F05 供丝与材料身份 | [ChBuilderBeam.cpp](../../third_party/chrono/src/chrono/fea/ChBuilderBeam.cpp)：挤出更新；[CObjectALEANCFCable2D.cpp](../../third_party/exudyn/src/ImplObjects/CObjectALEANCFCable2D.cpp)、[beams.py](../../third_party/exudyn/python/exudyn/beams.py)：ALE 与滑动装配 | 材料弧长／ID 持续映射，塑性历史随材料移动；动态增单元／ALE 均需审查历史继承 | L013、L025、L065、L086 | 供丝机制可借鉴，历史传递需开发 |
 | F06 第二端连接、瓷嘴／尾段作用解除 | [boundary_conditions.py](../../third_party/pyelastica/elastica/boundary_conditions.py)、[滑动约束实现](../../third_party/exudyn/src/ImplObjects/CObjectJointSliding2D.cpp)：约束施加方式 | 按材料身份在当前位置连接、分步改变约束、解除工具作用后保留应力与塑性历史；暂无完整键合工序状态机 | L023、L025、L026 | 暂无成套实现，需开发 |
-| F07 积分、稳定性与加载方式 | [symplectic_steppers.py](../../third_party/pyelastica/elastica/timestepper/symplectic_steppers.py)：`PositionVerlet`、`PEFRL`；[IGA 示例](../../third_party/chrono/src/demos/python/fea/demo_FEA_beamsIGA.py)：框架求解器配置 | 塑性更新与积分耦合、接触稳定步长、阻尼／能量收支、真实时长与慢加载区分 | L012、L026、L072、L101、L106 | 积分框架可复用，数值控制需适配 |
+| F07 积分、稳定性与加载方式 | [symplectic_steppers.py](../../third_party/pyelastica/elastica/timestepper/symplectic_steppers.py)：`PositionVerlet`、`PEFRL`；[隐式动力核心](implicit-dynamics.md)：HHT／Newmark／Generalized-alpha、Newton 与系统装配；[IGA 示例](../../third_party/chrono/src/demos/python/fea/demo_FEA_beamsIGA.py)：配置 | 塑性更新与积分耦合、接触稳定步长、阻尼／能量收支、真实时长与慢加载区分 | L012、L026、L072、L101、L106 | 积分框架可复用，数值控制需适配 |
 | F08 线形、曲率、残余状态输出 | [cosserat_rod.py](../../third_party/pyelastica/elastica/rod/cosserat_rod.py)、[factory_function.py](../../third_party/pyelastica/elastica/rod/factory_function.py)：杆数组与状态布局 | 以相同材料弧长输出中心线、弧高、拐点、反力、截面塑性与最终残余状态；独立结果格式 | L007、L023、L026 | 状态布局可复用，指标层需开发 |
 | F09 标定与 Abaqus／实验对照 | [现有 100 篇文献](../literature/2026-10-11/README.md)、[本轮功能补充](../literature/2026-10-11/supplement/README.md) | 单调／反向材料数据，网格与截面离散敏感性、步长与接触参数敏感性、独立线形观测；不存在可直接迁移的通用金丝参数包 | L040、L043、L048、L070、L088、L089、L102、L107 | 方法依据已有，数据与实施需补齐 |
 

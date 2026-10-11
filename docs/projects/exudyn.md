@@ -15,5 +15,5 @@
 
 ## 完整源码和运行
 
-使用 [固定提交完整源码](https://github.com/jgerstmayr/EXUDYN/tree/f172eb2c4b8cc1ccb19d722749145d185b9000c6)。开发安装参考本库保存的 [GETTING_STARTED.md](../../third_party/exudyn/docs/dev/GETTING_STARTED.md) 和 [BUILD.md](../../third_party/exudyn/docs/dev/BUILD.md)。16文件为学习选摘，不能单独构建；pip 包版本和平台应与源码核对。
+使用 [固定提交完整源码](https://github.com/jgerstmayr/EXUDYN/tree/f172eb2c4b8cc1ccb19d722749145d185b9000c6)。开发安装参考本库保存的 [GETTING_STARTED.md](../../third_party/exudyn/docs/dev/GETTING_STARTED.md) 和 [BUILD.md](../../third_party/exudyn/docs/dev/BUILD.md)。32文件为学习选摘，其中16个为 [隐式动力核心补充](../resource-map/implicit-dynamics.md)，不能单独构建；pip 包版本和平台应与源码核对。
 

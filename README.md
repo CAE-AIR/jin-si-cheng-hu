@@ -4,7 +4,9 @@
 
 收录可用于学习和二次开发的开源力学源码，为后续金丝成弧专用求解器提供可追溯参考。建立日期：2026-10-11。
 
-当前收录 **3 个项目、44 个完整原文件**。每个文件均从固定提交取得，保留上游目录、版权头和完整许可证，未修改源码；Git blob SHA 与 SHA-256 记录在 [sources.lock.json](sources.lock.json)。这些是精选学习快照，**不是完整的可编译发行包，也不是已完成的金丝成弧求解器**。
+当前收录 **3 个项目、79 个完整原文件**。每个文件均从固定提交取得，保留上游目录、版权头和完整许可证，未修改源码；Git blob SHA 与 SHA-256 记录在 [sources.lock.json](sources.lock.json)。这些是精选学习快照，**不是完整的可编译发行包，也不是已完成的金丝成弧求解器**。
+
+新增 [隐式动力求解器核心](docs/resource-map/implicit-dynamics.md)：收录 HHT、Newmark、Generalized-alpha，以及 Newton 迭代、系统装配、约束耦合和线性求解封装的 35 个原文件。原有 44 文件保持不变。
 
 ## 从这里开始
 
@@ -18,8 +20,8 @@
 
 | 项目 | 固定版本 | 定位 | 本库入口 |
 |---|---|---|---|
-| [Project Chrono](https://github.com/projectchrono/chrono) | 10.0.0 / `9faf13dd8f1128dd75ed233a9627027b0422c3f7` | 首选力学底座参考：大转动梁、塑性接口、接触及送线 | [说明](docs/projects/chrono.md) · [16 文件索引](third_party/chrono/INDEX.md) |
-| [EXUDYN](https://github.com/jgerstmayr/EXUDYN) | v1.13.6 / `f172eb2c4b8cc1ccb19d722749145d185b9000c6` | 二维梁、滑动约束、ALE 与材料回调参考 | [说明](docs/projects/exudyn.md) · [16 文件索引](third_party/exudyn/INDEX.md) |
+| [Project Chrono](https://github.com/projectchrono/chrono) | 10.0.0 / `9faf13dd8f1128dd75ed233a9627027b0422c3f7` | 首选力学底座参考：大转动梁、塑性接口、接触及送线 | [说明](docs/projects/chrono.md) · [35 文件索引](third_party/chrono/INDEX.md) |
+| [EXUDYN](https://github.com/jgerstmayr/EXUDYN) | v1.13.6 / `f172eb2c4b8cc1ccb19d722749145d185b9000c6` | 二维梁、滑动约束、ALE 与材料回调参考 | [说明](docs/projects/exudyn.md) · [32 文件索引](third_party/exudyn/INDEX.md) |
 | [PyElastica](https://github.com/GazzolaLab/PyElastica) | v1.0.0 / `b087f1399f9be2fdd2fcf3768689f7735a96f7ab` | 细杆状态布局、弹性杆、接触与显式积分参考 | [说明](docs/projects/pyelastica.md) · [12 文件索引](third_party/pyelastica/INDEX.md) |
 
 ## 验证快照
